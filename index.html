@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Uploader | Tochytskyi</title>
+	<script type="text/javascript" src="assets/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="assets/bootstrap3/js/bootstrap.min.js"></script>
+	<link href="assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bootstrap3/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body role="document">
+	<div class="container">
+		<div class="jumbotron">		
+	        <div class="row" id="main-block">	        
+	        	<div class="col-md-12">	        	
+		        	<form id="image-upload-form" enctype="multipart/form-data">
+		        		<div class="col-md-3">
+				        	<span class="btn btn-warning btn-lg btn-file" id="image-upload-select-btn">	        		
+							    Browse images<input type="file" accept="image/*" id="image-upload-input" multiple>
+							</span>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-warning btn-lg" id="image-reset-btn" hidden>Reset</a>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-warning btn-lg" id="image-upload-btn" hidden>Upload</a>
+						</div>						
+		        	</form>	
+	        	</div>	        	
+			</div>
+			<br/>
+			<div class="row" id="image-upload-preview">
+				<div class="col-md-12">
+		        	<div class="col-lg-3 col-md-4 col-xs-6 thumb unselectable" hidden>
+		                <a class="thumbnail">
+		                    <img class="img-responsive" src="http://placehold.it/400x300" data-rotate="0">
+		                </a>
+		                <span class="glyphicon glyphicon-arrow-left"></span>
+		                <span class="glyphicon glyphicon-arrow-right"></span>
+		                <br/>
+		                <progress class="progress progress-success" value="0" max="100"></progress>
+		            </div>	
+	            </div>
+			</div>
+      	</div>		
+	</div>
+
+	<!-- Modal -->
+	<div id="blockModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static"></div>	
+</body>
+<script src="core.js"></script>
+</html>

@@ -1,0 +1,62 @@
+.jumbotron {
+	height: auto;
+	margin-top: 15px;
+}
+
+.btn.btn-warning.btn-lg {
+	width: 100%;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.progress {
+	width: 100%;
+	opacity: 0.5;
+}
+
+.thumbnail {
+	overflow: hidden;	
+}
+
+a.thumbnail {
+    height: 170px;
+}
+
+.glyphicon.glyphicon-arrow-right,
+.glyphicon.glyphicon-arrow-left {
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+}
+
+.glyphicon-arrow-right {
+	float: right;
+}
+
+.unselectable {
+	user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
