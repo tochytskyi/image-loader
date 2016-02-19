@@ -9,7 +9,7 @@ var File = function(file) {
 // read image and make preview
 function readImage(file, callback) {
 	var deferred = $.Deferred();
-	if (typeof FileReader !== "undefined") {
+	if (typeof FileReader == "undefined") {
 	    var reader = new FileReader();
 	    reader.onload = function(event) {
 	    	callback(event.target.result, file);
@@ -19,12 +19,32 @@ function readImage(file, callback) {
 	        deferred.reject(this);
 	    };
 	    reader.readAsDataURL(file);
+
 	    return deferred.promise();
 	} else {
-		//browser doesn't support FileReader
-		var deferred = $.Deferred();
-		callback('', file);
-	    deferred.resolve();
+		//browser doesn't support FileReader. Thus, make preview from server
+		var formData = new FormData();
+		formData.append('imagePreview', file);
+		jQuery.ajax({
+	        type: 'post',
+	        dataType: 'json',
+	        url: 'server/image-preview.php',
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	        	if (!data.error) {
+	        		callback(data.url, file);
+	    			deferred.resolve(data.url);
+	        	}
+	        },
+	        error: function(request, status, error) {
+	            console.log("Error has occurred when when making preview: " + request.responseText);
+	            deferred.reject(this);
+	        }
+	    }); 	
+
 	    return deferred.promise();
 	}
 };
@@ -76,13 +96,13 @@ jQuery(document).ready(function() {
 	    	};	
 
 	    	//show handle buttons when all previews created
-	    	Promise.all(promises).then(function(values) {
+	    	$.when(promises).then(function(values) {
 		        uploadBtn.show();
     			resetBtn.show();
     			blockModal.modal('hide');
-		    }).catch(function(exeption) {
+		    }, function(exeption) {
         		console.warn(exeption);
-	        });	    	
+	        });   	
 	    };
 	});
 
@@ -133,13 +153,9 @@ jQuery(document).ready(function() {
 			},
 	        success: function(data) {
 	        	if (data.error && data.error === true) {
-	        		console.log(`${data.name} can not be uploaded`);
+	        		console.log(data.name + " can not be uploaded");
 	        	} else {
-	        		//set image preview if it doesn't exist yet
-	        		if (!fileInfo.reviewed) {
-	        			fileInfo.preview.find('img').attr('src', data.url);
-	        		}
-		        	console.log(`${data.name} uploaded successfully`);
+		        	console.log(data.name + " uploaded successfully");
 		        }
 	        },
 	        error: function(request, status, error) {
